@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using BLL.Services;
 using DAL.Interfaces;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,25 +23,27 @@ namespace Tickets
             }
         }
 
-        public TicketsHandler TicketsHandler { get; set; }
+        private ITicketsHandler _ticketsHandler { get; set; }
 
-        public AppViewModel(IUoW uow)
+        public AppViewModel(IUoW uow, ILogger<MainWindow> logger)
         {
-            TicketsHandler = new TicketsHandler(uow);
-            var ticketService = new TicketService(uow);
-           // _ticketsCount = ticketService.Count();
+            _ticketsHandler = new TicketsHandler(uow, logger);
+            _ticketsHandler.Notify += UpdateData;
         }
+        
+        private void UpdateData()
+        {
+            _ticketsCount = _ticketsHandler.TicketsCount;
+            OnPropertyChanged("TicketsCount");
+            System.Media.SystemSounds.Asterisk.Play();
+        }
+        
         //TODO: посмотреть-вспомнить, свойство не обновляется
         private long _ticketsCount;
         public long TicketsCount
         {
-            get => TicketsHandler.TicketsCount;
+            get => _ticketsCount;
         }
 
-        private bool _appModel;
-        public bool AppModel
-        {
-            get => _appModel;
-        }
     }
 }

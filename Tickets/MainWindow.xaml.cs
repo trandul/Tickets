@@ -1,5 +1,6 @@
 ﻿using DAL.Interfaces;
 using DAL.Repositories;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,11 @@ namespace Tickets
     public partial class MainWindow : Window
     {
 
-        public MainWindow(IUoW uow)
+        public MainWindow(IUoW uow, ILogger<MainWindow> logger)
         {
             InitializeComponent();
-            this.DataContext = new AppViewModel(uow);
+            logger.LogInformation("Main Window initialized");
+            this.DataContext = new AppViewModel(uow, logger);
         }
     }
 }

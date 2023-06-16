@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tickets", "Tickets\Tickets.csproj", "{CD390AB8-B421-4352-A0E4-FEB19A829951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tickets", "Tickets\Tickets.csproj", "{CD390AB8-B421-4352-A0E4-FEB19A829951}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{3C96B1D7-7A9A-4090-8341-F8E4228A7A1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{3C96B1D7-7A9A-4090-8341-F8E4228A7A1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{DC48B874-250C-4445-B46F-96895BB993D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{DC48B874-250C-4445-B46F-96895BB993D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

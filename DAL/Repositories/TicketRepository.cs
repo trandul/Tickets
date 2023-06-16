@@ -1,4 +1,5 @@
-﻿using DAL.Entities;
+﻿using DAL.ConnectionSettings;
+using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
@@ -12,15 +13,15 @@ namespace DAL.Repositories
 {
     public class TicketRepository : ITicketRepository
     {
-        private ConnectionFactory _connectionFactory;
-        public TicketRepository(ConnectionFactory connectionFactory)
+        private ConnectionSettingsModel _connectionSettings;
+        public TicketRepository(ConnectionSettingsModel connectionSettings)
         {
-            _connectionFactory = connectionFactory;
+            _connectionSettings = connectionSettings;
         }
 
         public long Count()
         {
-            using (var connection = _connectionFactory.Connection)
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 connection.Open();
                 try
@@ -49,7 +50,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Ticket> GetAll()
         {
-            using (var connection = _connectionFactory.Connection)
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 using (var command = connection.CreateCommand())
                 {

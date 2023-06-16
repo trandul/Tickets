@@ -1,4 +1,5 @@
-﻿using DAL.Interfaces;
+﻿using DAL.ConnectionSettings;
+using DAL.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,12 @@ namespace DAL.Repositories
 {
     public class UnitOfWork : IUoW
     {
-        private ConnectionFactory _connectionFactory;
+        private ConnectionSettingsModel _connectionSettings;
         private ITicketRepository _ticketRepository;
 
-        public UnitOfWork(ConnectionFactory connectionFactory)
+        public UnitOfWork(ConnectionSettingsModel connectionSettings)
         {
-            _connectionFactory = connectionFactory;
+            _connectionSettings = connectionSettings;
         }
         public ITicketRepository TicketRepository
         {
@@ -23,7 +24,7 @@ namespace DAL.Repositories
             {
                 if (_ticketRepository == null)
                 {
-                    _ticketRepository = new TicketRepository(_connectionFactory);
+                    _ticketRepository = new TicketRepository(_connectionSettings);
                 }
                 return _ticketRepository;
             }
