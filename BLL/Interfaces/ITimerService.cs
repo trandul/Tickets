@@ -10,7 +10,5 @@ namespace BLL.Interfaces
     public interface ITimerService
     {
         event TimerHandler Notify;
-        void Start();
-        void Stop();
     }
 }

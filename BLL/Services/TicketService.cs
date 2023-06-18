@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using DAL.Interfaces;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,27 @@ namespace BLL.Services
     public class TicketService : ITicketService
     {
         private IUoW _uow;
-        public TicketService(IUoW uow)
+        private ILogger _logger;
+        public TicketService(IUoW uow, ILogger logger)
         {
             _uow = uow;
+            _logger = logger;
         }
 
-        public long Count()
+        public long? Count()
         {
-            return _uow.TicketRepository.Count();
-        }
+            try
+            {
 
-        public bool HasNewTickets()
-        {
-            throw new NotImplementedException();
+                return _uow.TicketRepository.Count();
+
+            }
+            catch (Exception)
+            {
+
+                _logger.LogError($"{DateTime.Now} Ошибка работы с базой данных");
+                return null;
+            }
         }
     }
 }

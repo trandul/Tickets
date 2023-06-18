@@ -27,7 +27,7 @@ namespace Tickets
         public MainWindow(IUoW uow, ILogger<MainWindow> logger)
         {
             InitializeComponent();
-            logger.LogInformation("Main Window initialized");
+            logger.LogInformation($"{DateTime.Now} Main Window initialized");
             this.DataContext = new AppViewModel(uow, logger);
         }
     }

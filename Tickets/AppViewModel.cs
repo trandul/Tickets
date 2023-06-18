@@ -17,32 +17,55 @@ namespace Tickets
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            if (PropertyChanged !=null)
+            if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+        #region Commands
+        private Command _dbListenerStartStop;
+        public Command DbListenerStartStop
+        {
+            get
+            {
+                if (_dbListenerStartStop == null)
+                {
+                    _dbListenerStartStop = new Command(x =>
+                    {
+                        if (!_TicketsTracker.IsTrackingEnabled)
+                        {
+                            _TicketsTracker.StartTracking();
+                            _ticketsTrackerEnabled = true;
+                        }
+                        else
+                        {
+                            _TicketsTracker.StopTracking();
+                            _ticketsTrackerEnabled = false;
+                        }
+                        OnPropertyChanged("TicketsTrackerEnabled");
+                    });
 
-        private ITicketsHandler _ticketsHandler { get; set; }
+                }
+                return _dbListenerStartStop;
+            }
+        }
+        #endregion Commands
+        private ITicketsTracker _TicketsTracker { get; set; }
+        private bool _ticketsTrackerEnabled;
+        public bool TicketsTrackerEnabled => _ticketsTrackerEnabled;  
 
+    
+
+        private ITicketService _ticketService;
         public AppViewModel(IUoW uow, ILogger<MainWindow> logger)
         {
-            _ticketsHandler = new TicketsHandler(uow, logger);
-            _ticketsHandler.Notify += UpdateData;
+            _TicketsTracker = new TicketsTracker(uow, logger);
+            _TicketsTracker.Notify += UpdateData;
         }
         
         private void UpdateData()
         {
-            _ticketsCount = _ticketsHandler.TicketsCount;
-            OnPropertyChanged("TicketsCount");
             System.Media.SystemSounds.Asterisk.Play();
-        }
-        
-        //TODO: посмотреть-вспомнить, свойство не обновляется
-        private long _ticketsCount;
-        public long TicketsCount
-        {
-            get => _ticketsCount;
         }
 
     }

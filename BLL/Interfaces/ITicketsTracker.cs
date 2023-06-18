@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BLL.Services.TicketsHandler;
+using static BLL.Services.TicketsTracker;
 using static BLL.Services.TimerService;
 
 namespace BLL.Interfaces
 {
-    public interface ITicketsHandler
+    public interface ITicketsTracker
     {
         event TicketHandler Notify;
-        long TicketsCount { get; }
-        bool HasNewTickets { get; }
+        void StartTracking();
+        void StopTracking();
+        bool IsTrackingEnabled { get; }
     }
 }

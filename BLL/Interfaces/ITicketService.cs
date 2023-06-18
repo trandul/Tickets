@@ -9,9 +9,6 @@ namespace BLL.Interfaces
 {
     public interface ITicketService
     {
-        //Ticket GetById(int id);
-        //IEnumerable<Ticket> GetAll();
-        long Count();
-        bool HasNewTickets();
+        long? Count();
     }
 }

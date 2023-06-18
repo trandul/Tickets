@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="130,134,0,0" TextWrapping="Wrap" Text="{Binding TicketsCount}" VerticalAlignment="Top"/>
+        <Button  HorizontalAlignment="Left" Height="20" Margin="560,24,0,0" VerticalAlignment="Top" Width="185" Command="{Binding DbListenerStartStop}">
+            <Button.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding TicketsTrackerEnabled}" Value="True">
+                            <Setter Property="Button.Content" Value="Слежение запущено"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding TicketsTrackerEnabled}" Value="False">
+                            <Setter Property="Button.Content" Value="Слежение отключено"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+        </Button>
     </Grid>
 </Window>

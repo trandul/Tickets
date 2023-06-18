@@ -5,6 +5,7 @@ using DAL;
 using DAL.ConnectionSettings;
 using DAL.Interfaces;
 using DAL.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -23,8 +24,9 @@ namespace Tickets
         [STAThread]
         public static void Main()
         {
-            //TODO: убрать в конфиг
-            string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=Tickets;Trusted_Connection=True;";
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices(services =>
                 {
@@ -34,13 +36,13 @@ namespace Tickets
                     services.AddScoped<IUoW, UnitOfWork>();
                     services.AddScoped<ITicketService, TicketService>();
                     services.AddScoped<ITimerService, TimerService>();
-                    services.AddSingleton<ConnectionSettingsModel>(x=> new ConnectionSettingsModel(_connectionString));
+                    services.AddSingleton<ConnectionSettingsModel>(_ => new ConnectionSettingsModel(configuration.GetConnectionString("default")));
                 })
                 .Build();
             var app = host.Services.GetService<App>();
-            
+
             app?.Run();
-            
+
         }
     }
 }

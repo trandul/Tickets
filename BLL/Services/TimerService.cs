@@ -9,31 +9,24 @@ namespace BLL.Services
 {
     public class TimerService : ITimerService
     {
-        private bool _isRunning;
         public delegate void TimerHandler();
         public event TimerHandler? Notify;
 
-        public void Start()
+        private Task Timer;
+
+        public TimerService()
         {
-            _isRunning = true;
-            Task.Factory.StartNew(() =>
+
+            Timer = Task.Factory.StartNew(() =>
             {
-                while (_isRunning)
+                while (true)
                 {
                     Notify?.Invoke();
                     Thread.Sleep(3000);
                 }
             });
-        }
-
-        public void Stop()
-        {
-            _isRunning=false;
-        }
-
-        private void Timer()
-        {
 
         }
+
     }
 }
