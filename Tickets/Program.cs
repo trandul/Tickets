@@ -1,7 +1,6 @@
 ﻿using BLL.Infrastructure;
 using BLL.Interfaces;
 using BLL.Services;
-using DAL;
 using DAL.ConnectionSettings;
 using DAL.Interfaces;
 using DAL.Repositories;
@@ -10,12 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tickets
 {

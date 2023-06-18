@@ -1,13 +1,6 @@
 ﻿using DAL.ConnectionSettings;
-using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {

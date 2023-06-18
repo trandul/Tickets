@@ -2,13 +2,8 @@
 using BLL.Services;
 using DAL.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tickets
 {
@@ -52,9 +47,9 @@ namespace Tickets
         #endregion Commands
         private ITicketsTracker _TicketsTracker { get; set; }
         private bool _ticketsTrackerEnabled;
-        public bool TicketsTrackerEnabled => _ticketsTrackerEnabled;  
+        public bool TicketsTrackerEnabled => _ticketsTrackerEnabled;
 
-    
+
 
         private ITicketService _ticketService;
         public AppViewModel(IUoW uow, ILogger<MainWindow> logger)
@@ -62,7 +57,7 @@ namespace Tickets
             _TicketsTracker = new TicketsTracker(uow, logger);
             _TicketsTracker.Notify += UpdateData;
         }
-        
+
         private void UpdateData()
         {
             System.Media.SystemSounds.Asterisk.Play();
